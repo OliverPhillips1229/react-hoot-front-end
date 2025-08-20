@@ -1,8 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as hootService from '../../services/hootService';
+import CommentForm from '../CommentForm/CommentForm';
 
 const HootDetails = () => {
+  const handleAddComment = async (commentFormData) => {
+    const newComment = await hootService.createComment(hootId, commentFormData);
+    setHoot({ ...hoot, comments: [...hoot.comments, newComment] });
+  };
   const { hootId } = useParams();
   const [hoot, setHoot] = useState(null);
 
@@ -34,9 +39,9 @@ const HootDetails = () => {
       {/* All updates are in the comments section! */}
       <section>
         <h2>Comments</h2>
-
+        {/* Pass the handleAddComment function to the CommentForm Component */}
+        <CommentForm handleAddComment={handleAddComment}/>
         {!hoot.comments.length && <p>There are no comments.</p>}
-
         {hoot.comments.map((comment) => (
           <article key={comment._id}>
             <header>
