@@ -1,29 +1,25 @@
-import { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import { UserContext } from '../../contexts/UserContext';
+const NavBar = ({ user, handleSignOut }) => {
 
-const NavBar = () => {
-  const { user, setUser } = useContext(UserContext);
-
-  const handleSignOut = () => {
+  const onSignOut = () => {
     localStorage.removeItem('token');
-    setUser(null);
-  };
-
+    SpeechSynthesisUtterance(null);
+    handleSignOut && handleSignOut();
+  }
   return (
     <nav>
       {user ? (
         <ul>
-          <li>Welcome, {user.username}</li>
-          <li><Link to='/'>Dashboard</Link></li>
-          <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
+          <li><Link to='/'>HOME</Link></li>
+          <li><Link to='/hoots'>HOOTS</Link></li>
+          <li><Link to='/' onClick={onSignOut}>Sign Out</Link></li>
         </ul>
       ) : (
         <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/sign-in'>Sign In</Link></li>
-          <li><Link to='/sign-up'>Sign Up</Link></li>
+          <li><Link to='/'>HOME</Link></li>
+          <li><Link to='/sign-in'>SIGN IN</Link></li>
+          <li><Link to='/sign-up'>SIGN UP</Link></li>
         </ul>
       )}
     </nav>
