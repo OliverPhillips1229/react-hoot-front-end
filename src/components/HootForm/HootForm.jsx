@@ -1,9 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import styles from './HootForm.module.css';
 
 import * as hootService from '../../services/hootService';
 
 const HootForm = (props) => {
+  // Destructure hootId from the useParams hook
+  const { hootId } = useParams();
+  const { user } = props;
+  const [formData, setFormData] = useState({
+    title: '',
+    text: '',
+    category: 'News',
+    createdAt: new Date().toISOString(),
+    author: user ? user.username : 'Anonymous',
+  });
+
   useEffect(() => {
     const fetchHoot = async () => {
       const hootData = await hootService.show(hootId);
@@ -15,15 +27,6 @@ const HootForm = (props) => {
     return () => setFormData({ title: '', text: '', category: 'News' });
   }, [hootId]);
 
-  // Destructure hootId from the useParams hook, and console log it
-  const { hootId } = useParams();
-  console.log(hootId);
-  const [formData, setFormData] = useState({
-    title: '',
-    text: '',
-    category: 'News',
-  });
-
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -31,16 +34,21 @@ const HootForm = (props) => {
 
   const handleSubmit = (evt) => {
   evt.preventDefault();
+  const hootData = {
+    ...formData,
+    createdAt: new Date().toISOString(),
+    author: user ? user.username : 'Anonymous',
+  };
   if (hootId) {
-    props.handleUpdateHoot(hootId, formData);
+    props.handleUpdateHoot(hootId, hootData);
   } else {
-    props.handleAddHoot(formData);
+    props.handleAddHoot(hootData);
   }
 };
 
 
   return (
-    <main>
+    <main className={styles.container}>
       {/* Add a heading */}
       <h1>{hootId ? 'Edit Hoot' : 'New Hoot'}</h1>
       <form onSubmit={handleSubmit}>
@@ -78,7 +86,7 @@ const HootForm = (props) => {
           <option value='Sports'>Sports</option>
           <option value='Television'>Television</option>
         </select>
-        <button type='submit'>SUBMIT</button>
+        <button type='submit' disabled={!formData.title || !formData.text}>SUBMIT</button>
       </form>
     </main>
   );

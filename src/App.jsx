@@ -5,7 +5,6 @@ import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
 import HootList from './components/HootList/HootList';
 import HootDetails from './components/HootDetails/HootDetails';
 import HootForm from './components/HootForm/HootForm';
@@ -15,7 +14,7 @@ import { UserContext } from './contexts/UserContext';
 import * as hootService from './services/hootService';
 
 const App = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [hoots, setHoots] = useState([]);
   const navigate = useNavigate();
 
@@ -50,11 +49,16 @@ const App = () => {
 
 
 
+  const handleSignOut = () => {
+    setUser(null);
+    navigate('/');
+  };
+
   return (
     <>
-      <NavBar/>
+  <NavBar user={user} handleSignOut={handleSignOut}/>
       <Routes>
-        <Route path='/' element={user ? <Dashboard /> : <Landing />} />
+  <Route path='/' element={<Landing />} />
         {user ? (
           <>
             <Route path='/hoots' element={<HootList hoots={hoots}/>} />

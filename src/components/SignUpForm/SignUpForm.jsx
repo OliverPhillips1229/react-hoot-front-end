@@ -1,9 +1,10 @@
+
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router';
-
+import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../services/authService';
-
 import { UserContext } from '../../contexts/UserContext';
+import styles from './SignUpForm.module.css';
+import SignUpIcon from '../../assets/images/signup.svg';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -34,52 +35,55 @@ const SignUpForm = () => {
   };
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !username || !password || password !== passwordConf;
   };
 
   return (
-    <main>
-      <h1>Sign Up</h1>
-      <p>{message}</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>Username:</label>
-          <input
-            type='text'
-            id='name'
-            value={username}
-            name='username'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            id='password'
-            value={password}
-            name='password'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='confirm'>Confirm Password:</label>
-          <input
-            type='password'
-            id='confirm'
-            value={passwordConf}
-            name='passwordConf'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button disabled={isFormInvalid()}>Sign Up</button>
-          <button onClick={() => navigate('/')}>Cancel</button>
-        </div>
-      </form>
+    <main className={styles.container}>
+      <section>
+        <img src={SignUpIcon} alt='An owl sitting on a sign' />
+      </section>
+      <section>
+        <form onSubmit={handleSubmit} autoComplete='off'>
+          <h1>Sign Up</h1>
+          <p>{message}</p>
+          <div>
+            <label htmlFor='username'>Username:</label>
+            <input
+              type='text'
+              name='username'
+              value={username}
+              onChange={handleChange}
+              required
+              autoComplete='off'
+            />
+          </div>
+          <div>
+            <label htmlFor='password'>Password:</label>
+            <input
+              type='password'
+              name='password'
+              value={password}
+              onChange={handleChange}
+              required
+              autoComplete='off'
+            />
+          </div>
+          <div>
+            <label htmlFor='passwordConf'>Confirm Password:</label>
+            <input
+              type='password'
+              name='passwordConf'
+              value={passwordConf}
+              onChange={handleChange}
+              required
+              autoComplete='off'
+            />
+          </div>
+          <button type='submit' disabled={isFormInvalid()}>Sign Up</button>
+          <button type='button' onClick={() => navigate('/')}>Cancel</button>
+        </form>
+      </section>
     </main>
   );
 };

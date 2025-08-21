@@ -13,8 +13,8 @@ const Dashboard = () => {
       try {
         const fetchedUsers = await userService.index();
         setUsers(fetchedUsers);
-      } catch (err) {
-        console.log(err)
+      } catch {
+        // Error handled silently
       }
     }
     if (user) fetchUsers();

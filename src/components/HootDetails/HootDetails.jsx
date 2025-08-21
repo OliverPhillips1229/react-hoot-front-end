@@ -1,11 +1,15 @@
+import AuthorInfo from '../AuthorInfo/AuthorInfo';
 import { useParams, Link } from 'react-router-dom';
+import Icon from '../Icon/Icon';
 import { useState, useEffect, useContext } from 'react';
 import * as hootService from '../../services/hootService';
 import CommentForm from '../CommentForm/CommentForm';
+import styles from './HootDetails.module.css';
+import Loading from '../Loading/Loading';
 import { UserContext } from '../../contexts/UserContext';
 
 
-const HootDetails = () => {
+const HootDetails = ({ handleDeleteHoot }) => {
   const handleDeleteComment = async (commentId) => {
     console.log('commentId:', commentId);
     await hootService.deleteComment(hootId, commentId);
@@ -31,18 +35,28 @@ const HootDetails = () => {
 
   console.log('hoot state:', hoot);
 
-  if (!hoot) return <main>Loading...</main>;
+  if (!hoot) return <Loading />;
 
   return (
-    <main>
+    <main className={styles.container}>
       <section>
         <header>
           <p>{hoot.category.toUpperCase()}</p>
           <h1>{hoot.title}</h1>
-          <p>
-            {`${hoot.author.username} posted on
-            ${new Date(hoot.createdAt).toLocaleDateString()}`}
-          </p>
+          <div>
+            {/* Removed duplicate author/date <p> tag, now only using AuthorInfo */}
+      <AuthorInfo content={hoot} />
+            {hoot.author._id === user._id && (
+              <>
+                <Link to={`/hoots/${hootId}/edit`}>
+                  <Icon category='Edit' />
+                </Link>
+                <button onClick={() => handleDeleteHoot(hootId)}>
+                  <Icon category='Trash' />
+                </button>
+              </>
+            )}
+          </div>
         </header>
         <p>{hoot.text}</p>
       </section>
@@ -50,23 +64,25 @@ const HootDetails = () => {
       <section>
         <h2>Comments</h2>
         {/* Pass the handleAddComment function to the CommentForm Component */}
-  <CommentForm handleAddComment={handleAddComment}/>
-  {!hoot.comments?.length && <p>There are no comments.</p>}
-  {(hoot.comments || []).map((comment) => (
+        <CommentForm handleAddComment={handleAddComment}/>
+        {!hoot.comments?.length && <p>There are no comments.</p>}
+        {(hoot.comments || []).map((comment) => (
           <article key={comment._id}>
             <header>
-              <p>
-                {`${comment.author.username} posted on
-                ${new Date(comment.createdAt).toLocaleDateString()}`}
-              </p>
-              {comment.author._id === user._id && (
-                <>
-                  <Link to={`/hoots/${hootId}/comments/${comment._id}/edit`}>Edit</Link>
-                  <button onClick={() => handleDeleteComment(comment._id)}>
-                    Delete
-                  </button>
-                </>
-              )}
+              <div>
+                {/* Removed duplicate author/date <p> tag, now only using AuthorInfo */}
+                  <AuthorInfo content={comment} />
+                {comment.author._id === user._id && (
+                  <>
+                    <Link to={`/hoots/${hootId}/comments/${comment._id}/edit`}>
+                      <Icon category='Edit' />
+                    </Link>
+                    <button onClick={() => handleDeleteComment(comment._id)}>
+                      <Icon category='Trash' />
+                    </button>
+                  </>
+                )}
+              </div>
             </header>
             <p>{comment.text}</p>
           </article>

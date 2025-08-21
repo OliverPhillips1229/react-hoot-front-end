@@ -1,22 +1,25 @@
-import { Link } from 'react-router';
+import styles from './HootList.module.css';
 
 
 const HootList = (props) => {
   return (
-    <main>
-      {props.hoots.map((hoot) => (
-        <Link key={hoot._id} to={`/hoots/${hoot._id}`}>
-          <article>
-            <header>
-              <h2>{hoot.title}</h2>
-              <p>
-                {`${hoot.author.username} posted on
-                ${new Date(hoot.createdAt).toLocaleDateString()}`}
-              </p>
-            </header>
-            <p>{hoot.text}</p>
-          </article>
-        </Link>
+    <main className={styles.container}>
+      {props.hoots.length === 0 && <p>No hoots found.</p>}
+      {props.hoots.map((hoot, idx) => (
+        <article key={hoot.id || idx} className={styles.article}>
+          <header>
+            <h2>
+              {hoot.title
+                ? hoot.title
+                : hoot.id
+                  ? `Hoot #${hoot.id}`
+                  : hoot.text
+                    ? 'Hoot'
+                    : 'Untitled Hoot'}
+            </h2>
+          </header>
+          <p>{hoot.text || 'No text provided.'}</p>
+        </article>
       ))}
     </main>
   );

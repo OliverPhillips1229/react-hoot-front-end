@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom';
+import styles from './NavBar.module.css';
+import Logo from '../../assets/images/logo.svg';
 
 const NavBar = ({ user, handleSignOut }) => {
-
   const onSignOut = () => {
     localStorage.removeItem('token');
-    SpeechSynthesisUtterance(null);
     handleSignOut && handleSignOut();
-  }
+  };
   return (
-    <nav>
+    <nav className={styles.container}>
+      <Link to='/'><img src={Logo} alt='A cute owl' /></Link>
       {user ? (
         <ul>
           <li><Link to='/'>HOME</Link></li>
           <li><Link to='/hoots'>HOOTS</Link></li>
-          <li><link to='/hoots/new'>NEW HOOT</link></li>
+          <li><Link to='/hoots/new'>NEW HOOT</Link></li>
           <li><Link to='/' onClick={onSignOut}>Sign Out</Link></li>
         </ul>
       ) : (
