@@ -1,9 +1,10 @@
+
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router';
-
+import { useNavigate } from 'react-router-dom';
 import { signIn } from '../../services/authService';
-
 import { UserContext } from '../../contexts/UserContext';
+import styles from './SignInForm.module.css';
+import LoginIcon from '../../assets/images/login.svg';
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const SignInForm = () => {
     username: '',
     password: '',
   });
+
+  const { username, password } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -30,40 +33,45 @@ const SignInForm = () => {
     }
   };
 
+  const isFormInvalid = () => {
+    return !username || !password;
+  };
+
   return (
-    <main>
-      <h1>Sign In</h1>
-      <p>{message}</p>
-      <form autoComplete='off' onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email'>Username:</label>
-          <input
-            type='text'
-            autoComplete='off'
-            id='username'
-            value={formData.username}
-            name='username'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            autoComplete='off'
-            id='password'
-            value={formData.password}
-            name='password'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button>Sign In</button>
-          <button onClick={() => navigate('/')}>Cancel</button>
-        </div>
-      </form>
+    <main className={styles.container}>
+      <section>
+        <img src={LoginIcon} alt='An owl with a login sign' />
+      </section>
+      <section>
+        <form onSubmit={handleSubmit} autoComplete='off'>
+          <h1>Log In</h1>
+          <p>{message}</p>
+          <div>
+            <label htmlFor='username'>Username:</label>
+            <input
+              type='text'
+              name='username'
+              value={username}
+              onChange={handleChange}
+              required
+              autoComplete='off'
+            />
+          </div>
+          <div>
+            <label htmlFor='password'>Password:</label>
+            <input
+              type='password'
+              name='password'
+              value={password}
+              onChange={handleChange}
+              required
+              autoComplete='off'
+            />
+          </div>
+          <button type='submit' disabled={isFormInvalid()}>Log In</button>
+          <button type='button' onClick={() => navigate('/')}>Cancel</button>
+        </form>
+      </section>
     </main>
   );
 };

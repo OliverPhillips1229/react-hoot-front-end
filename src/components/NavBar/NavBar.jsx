@@ -20,7 +20,7 @@ const NavBar = ({ user, handleSignOut }) => {
       ) : (
         <ul>
           <li><Link to='/'>HOME</Link></li>
-          <li><Link to='/sign-in'>SIGN IN</Link></li>
+          <li><Link to='/sign-in'>LOG IN</Link></li>
           <li><Link to='/sign-up'>SIGN UP</Link></li>
         </ul>
       )}
