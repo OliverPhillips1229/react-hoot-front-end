@@ -1,3 +1,5 @@
+/* ---AB checked_ SoundCircle ready --- */
+
 import { createContext, useState } from 'react';
 
 const UserContext = createContext();
