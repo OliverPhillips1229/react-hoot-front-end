@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/hoots`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/soundbytes`;
 
 const index = async () => {
   try {
@@ -12,9 +12,9 @@ const index = async () => {
 };
 
 
-const show = async (hootId) => {
+const show = async (soundByteId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${hootId}`, {
+    const res = await fetch(`${BASE_URL}/${soundByteId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     return res.json();
@@ -23,7 +23,7 @@ const show = async (hootId) => {
   }
 };
 
-const create = async (hootFormData) => {
+const create = async (soundByteFormData) => {
   try {
     const res = await fetch(BASE_URL, {
       method: 'POST',
@@ -31,7 +31,7 @@ const create = async (hootFormData) => {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(hootFormData),
+      body: JSON.stringify(soundByteFormData),
     });
     return res.json();
   } catch (error) {
@@ -39,9 +39,9 @@ const create = async (hootFormData) => {
   }
 };
 
-const createComment = async (hootId, commentFormData) => {
+const createComment = async (soundByteId, commentFormData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${hootId}/comments`, {
+    const res = await fetch(`${BASE_URL}/${soundByteId}/comments`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -55,9 +55,9 @@ const createComment = async (hootId, commentFormData) => {
   }
 };
 
-const deleteHoot = async (hootId) => {
+const deleteSoundByte = async (soundByteId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${hootId}`, {
+    const res = await fetch(`${BASE_URL}/${soundByteId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -69,15 +69,15 @@ const deleteHoot = async (hootId) => {
   }
 };
 
-async function update(hootId, hootFormData) {
+async function update(soundByteId, soundByteFormData) {
   try {
-    const res = await fetch(`${BASE_URL}/${hootId}`, {
+    const res = await fetch(`${BASE_URL}/${soundByteId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(hootFormData),
+      body: JSON.stringify(soundByteFormData),
     });
     return res.json();
   } catch (error) {
@@ -85,9 +85,9 @@ async function update(hootId, hootFormData) {
   }
 };
 
-const deleteComment = async (hootId, commentId) => {
+const deleteComment = async (soundByteId, commentId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${hootId}/comments/${commentId}`, {
+    const res = await fetch(`${BASE_URL}/${soundByteId}/comments/${commentId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -100,9 +100,9 @@ const deleteComment = async (hootId, commentId) => {
   }
 };
 
-const updateComment = async (hootId, commentId, commentFormData) => {
+const updateComment = async (soundByteId, commentId, commentFormData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${hootId}/comments/${commentId}`, {
+    const res = await fetch(`${BASE_URL}/${soundByteId}/comments/${commentId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -117,5 +117,5 @@ const updateComment = async (hootId, commentId, commentFormData) => {
 };
 
 export {
-    index, show, create, createComment, deleteHoot, update, deleteComment, updateComment,
+    index, show, create, createComment, deleteSoundByte, update, deleteComment, updateComment,
 };
