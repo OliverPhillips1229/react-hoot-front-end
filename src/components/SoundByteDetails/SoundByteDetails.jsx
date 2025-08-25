@@ -26,7 +26,8 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
   const [soundByte, setSoundByte] = useState(null);
   const { user } = useContext(UserContext);
   useEffect(() => {
-    const fetchSoundByte = async () => { //confirm names align
+    const fetchSoundByte = async () => {
+      //confirm names align across files
       const soundByteData = await soundByteService.show(soundByteId);
       setSoundByte(soundByteData);
     };
@@ -41,11 +42,13 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
     <main className={styles.container}>
       <section>
         <header>
-          <p>{soundByte.category.toUpperCase()}</p>
           <h1>{soundByte.title}</h1>
+          <h3>{soundByte.artist}</h3>
+          <h3>{soundByte.album}</h3>
+          <h4>{soundByte.url}</h4>
+          <p>{soundByte.notes}</p>
           <div>
-            {/* Removed duplicate author/date <p> tag, now only using AuthorInfo */}
-      <AuthorInfo content={soundByte} />
+            <AuthorInfo content={soundByte} />
             {soundByte.author._id === user._id && (
               <>
                 <Link to={`/soundBytes/${soundByteId}/edit`}>
@@ -60,18 +63,15 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
         </header>
         <p>{soundByte.text}</p>
       </section>
-      {/* All updates are in the comments section! */}
       <section>
         <h2>Comments</h2>
-        {/* Pass the handleAddComment function to the CommentForm Component */}
-        <CommentForm handleAddComment={handleAddComment}/>
+        <CommentForm handleAddComment={handleAddComment} />
         {!soundByte.comments?.length && <p>There are no comments.</p>}
         {(soundByte.comments || []).map((comment) => (
           <article key={comment._id}>
             <header>
               <div>
-                {/* Removed duplicate author/date <p> tag, now only using AuthorInfo */}
-                  <AuthorInfo content={comment} />
+                <AuthorInfo content={comment} />
                 {comment.author._id === user._id && (
                   <>
                     <Link to={`/soundBytes/${soundByteId}/comments/${comment._id}/edit`}>

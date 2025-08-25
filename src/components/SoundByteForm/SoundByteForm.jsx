@@ -25,7 +25,7 @@ const SoundByteForm = (props) => {
     if (soundByteId) fetchSoundByte();
 
     // Add a cleanup function
-    return () => setFormData({ artist: '', title: '', album: '', url: '', notes: '', notes: '', });
+    return () => setFormData({ artist: '', title: '', album: '', url: '', notes: '', });
     // ENSURE ALIGNS WITH SOUNDBYTE MODEL IN BE// 
   }, [soundByteId]);
 
