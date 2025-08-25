@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 import styles from './SignUpForm.module.css';
-import SignUpIcon from '../../assets/images/signup.svg';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -40,9 +39,6 @@ const SignUpForm = () => {
 
   return (
     <main className={styles.container}>
-      <section>
-        <img src={SignUpIcon} alt='An owl sitting on a sign' />
-      </section>
       <section>
         <form onSubmit={handleSubmit} autoComplete='off'>
           <h1>Sign Up</h1>
