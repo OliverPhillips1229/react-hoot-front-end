@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styles from './NavBar.module.css';
 
 const NavBar = ({ user, handleSignOut }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const location = useLocation();
 
@@ -12,19 +11,10 @@ const NavBar = ({ user, handleSignOut }) => {
     localStorage.removeItem('rememberUser');
     handleSignOut && handleSignOut();
     setIsProfileDropdownOpen(false);
-    setIsMobileMenuOpen(false);
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
   };
 
   const isActive = (path) => {
@@ -34,48 +24,28 @@ const NavBar = ({ user, handleSignOut }) => {
   return (
     <nav className={styles.container}>
       <div className={styles.brand}>
-        <Link to='/' onClick={closeMobileMenu}>
           <span className={styles.brandText}>SoundCircle</span>
         </Link>
       </div>
 
-      <button 
-        className={styles.mobileMenuToggle}
-        onClick={toggleMobileMenu}
-        aria-label="Toggle mobile menu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <div className={`${styles.navContent} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
+      <div className={styles.navContent}>
         {user ? (
           <>
             <ul className={styles.mainNav}>
               <li>
-                <Link 
-                  to='/' 
-                  className={isActive('/')}
-                  onClick={closeMobileMenu}
-                >
+                <Link to='/' className={isActive('/')}>
                   FEED
                 </Link>
               </li>
               <li>
-                <Link 
-                  to='/discover' 
-                  className={isActive('/discover')}
-                  onClick={closeMobileMenu}
-                >
+                <Link to='/discover' className={isActive('/discover')}>
                   DISCOVER
                 </Link>
               </li>
               <li>
-                <Link 
-                  to='/sound-bytes/new' 
+                <Link
+                  to='/sound-bytes/new'
                   className={`${styles.newPostBtn} ${isActive('/sound-bytes/new')}`}
-                  onClick={closeMobileMenu}
                 >
                   + NEW SOUND
                 </Link>
@@ -84,7 +54,7 @@ const NavBar = ({ user, handleSignOut }) => {
 
             <div className={styles.userSection}>
               <div className={styles.profileDropdown}>
-                <button 
+                <button
                   className={styles.profileButton}
                   onClick={toggleProfileDropdown}
                   aria-label="User menu"
@@ -98,39 +68,27 @@ const NavBar = ({ user, handleSignOut }) => {
 
                 {isProfileDropdownOpen && (
                   <div className={styles.dropdownMenu}>
-                    <Link 
-                      to={`/profile/${user.username}`} 
-                      onClick={() => {
-                        setIsProfileDropdownOpen(false);
-                        closeMobileMenu();
-                      }}
+                    <Link
+                      to={`/profile/${user.username}`}
+                      onClick={() => setIsProfileDropdownOpen(false)}
                     >
                       My Profile
                     </Link>
-                    <Link 
-                      to='/settings' 
-                      onClick={() => {
-                        setIsProfileDropdownOpen(false);
-                        closeMobileMenu();
-                      }}
+                    <Link
+                      to='/settings'
+                      onClick={() => setIsProfileDropdownOpen(false)}
                     >
                       Settings
                     </Link>
-                    <Link 
-                      to='/my-sounds' 
-                      onClick={() => {
-                        setIsProfileDropdownOpen(false);
-                        closeMobileMenu();
-                      }}
+                    <Link
+                      to='/my-sounds'
+                      onClick={() => setIsProfileDropdownOpen(false)}
                     >
                       My Sounds
                     </Link>
-                    <Link 
-                      to='/following' 
-                      onClick={() => {
-                        setIsProfileDropdownOpen(false);
-                        closeMobileMenu();
-                      }}
+                    <Link
+                      to='/following'
+                      onClick={() => setIsProfileDropdownOpen(false)}
                     >
                       Following
                     </Link>
@@ -146,37 +104,27 @@ const NavBar = ({ user, handleSignOut }) => {
         ) : (
           <ul className={styles.authNav}>
             <li>
-              <Link 
-                to='/' 
-                className={isActive('/')}
-                onClick={closeMobileMenu}
-              >
+              <Link to='/' className={isActive('/')}>
                 HOME
               </Link>
             </li>
             <li>
-              <Link 
-                to='/discover' 
-                className={isActive('/discover')}
-                onClick={closeMobileMenu}
-              >
+              <Link to='/discover' className={isActive('/discover')}>
                 DISCOVER
               </Link>
             </li>
             <li>
-              <Link 
-                to='/sign-in' 
+              <Link
+                to='/sign-in'
                 className={`${styles.loginBtn} ${isActive('/sign-in')}`}
-                onClick={closeMobileMenu}
               >
                 LOG IN
               </Link>
             </li>
             <li>
-              <Link 
-                to='/sign-up' 
+              <Link
+                to='/sign-up'
                 className={`${styles.signupBtn} ${isActive('/sign-up')}`}
-                onClick={closeMobileMenu}
               >
                 SIGN UP
               </Link>
@@ -184,8 +132,6 @@ const NavBar = ({ user, handleSignOut }) => {
           </ul>
         )}
       </div>
-
-      {isMobileMenuOpen && <div className={styles.overlay} onClick={closeMobileMenu}></div>}
     </nav>
   );
 };
