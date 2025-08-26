@@ -2,8 +2,8 @@ import { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
 
 import NavBar from './components/NavBar/NavBar';
-import SignUpForm from './components/SignUpForm/SignUpForm';
-import SignInForm from './components/SignInForm/SignInForm';
+import CircleSignUpForm from './components/SignUpForm/CircleSignUpForm';
+import CircleSignInForm from './components/SignInForm/CircleSignInForm';
 import Landing from './components/Landing/Landing';
 import SoundByteList from './components/SoundByteList/SoundByteList';
 import SoundByteDetails from './components/SoundByteDetails/SoundByteDetails';
@@ -11,7 +11,7 @@ import SoundByteForm from './components/SoundByteForm/SoundByteForm';
 
 import { UserContext } from './contexts/UserContext';
 
-import * as soundByteService from './services/soundCircleService';
+import * as soundCircleService from './services/soundCircleService';
 
 const App = () => {
   const { user, setUser } = useContext(UserContext);
@@ -20,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchAllSoundBytes = async () => {
-      const soundBytesData = await soundByteService.index();
+      const soundBytesData = await soundCircleService.index();
 
       // update to set state:
       setSoundBytes(soundBytesData);
@@ -29,13 +29,13 @@ const App = () => {
   }, [user]);
   
   const handleAddSoundByte = async (soundByteFormData) => {
-    const newSoundBytet = await soundCircleService.create(soundByteFormData);
+    const newSoundByte = await soundCircleService.create(soundByteFormData);
     setSoundBytes([newSoundByte, ...soundBytes]);
     navigate('/soundbytes');
   };
 
   const handleDeleteSoundByte = async (soundByteId) => {
-    const deletedSoundByte = await soundByteService.deleteSoundByte(soundByteId);
+    const deletedSoundByte = await soundCircleService.deleteSoundByte(soundByteId);
     setSoundBytes(soundBytes.filter((soundByte) => soundByte._id !== deletedSoundByte._id));
     navigate('/soundbytes');
   };
@@ -68,8 +68,8 @@ const App = () => {
         ) : (
           <>
             {/* Non-user routes (available only to guests) */}
-            <Route path='/sign-up' element={<SignUpForm />} />
-            <Route path='/sign-in' element={<SignInForm />} />
+            <Route path='/sign-up' element={<CircleSignUpForm />} />
+            <Route path='/sign-in' element={<CircleSignInForm />} />
           </>
         )}
       </Routes>

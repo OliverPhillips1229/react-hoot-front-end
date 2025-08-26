@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './NavBar.module.css';
-import Logo from '../../assets/images/logo.svg';
 
 const NavBar = ({ user, handleSignOut }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -36,7 +35,6 @@ const NavBar = ({ user, handleSignOut }) => {
     <nav className={styles.container}>
       <div className={styles.brand}>
         <Link to='/' onClick={closeMobileMenu}>
-          <img src={Logo} alt='SoundCircle Logo' />
           <span className={styles.brandText}>SoundCircle</span>
         </Link>
       </div>

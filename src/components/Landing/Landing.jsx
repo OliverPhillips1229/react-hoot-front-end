@@ -1,13 +1,10 @@
 import styles from './Landing.module.css';
-import Stars from '../../assets/images/stars.svg';
-import Logotype from '../../assets/images/logotype.svg';
 
 const Landing = () => {
   return (
     <>
       <main className={styles.container}>
         <section className={styles.splash}>
-          <img src={Logotype} alt='A cute owl' />
         </section>
 
         <section className={styles.about}>
@@ -48,14 +45,12 @@ const Landing = () => {
               convenient for me to write my blog posts at night.
             </p>
             <footer>
-              <img src={Stars} alt='Four blue stars' />
             </footer>
           </article>
         </section>
       </main>
 
       <footer className={styles.footer}>
-        © 2025 HOOT INC. OWL RIGHTS RESERVED
       </footer>
     </>
   );
