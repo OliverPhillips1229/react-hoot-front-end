@@ -24,6 +24,7 @@ const NavBar = ({ user, handleSignOut }) => {
   return (
     <nav className={styles.container}>
       <div className={styles.brand}>
+        <Link to='/'>
           <span className={styles.brandText}>SoundCircle</span>
         </Link>
       </div>
