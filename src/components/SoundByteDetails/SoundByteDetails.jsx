@@ -2,7 +2,7 @@ import AuthorInfo from '../AuthorInfo/AuthorInfo';
 import { useParams, Link } from 'react-router-dom';
 import Icon from '../Icon/Icon';
 import { useState, useEffect, useContext } from 'react';
-import * as soundByteService from '../../services/soundByteService'; //confirm names align
+import * as soundCircleService from '../../services/soundCircleService'; //confirm names align
 import CommentForm from '../CommentForm/CommentForm';
 import styles from './SoundByteDetails.module.css';//confirm names align
 import Loading from '../Loading/Loading';
@@ -12,14 +12,14 @@ import { UserContext } from '../../contexts/UserContext';
 const SoundByteDetails = ({ handleDeleteSoundByte }) => {
   const handleDeleteComment = async (commentId) => {
     console.log('commentId:', commentId);
-    await soundByteService.deleteComment(soundByteId, commentId);
+    await soundCircleService.deleteComment(soundByteId, commentId);
     setSoundByte({
       ...soundByte,
       comments: soundByte.comments.filter((comment) => comment._id !== commentId),
     });
   };
   const handleAddComment = async (commentFormData) => {
-    const newComment = await soundByteService.createComment(soundByteId, commentFormData);
+    const newComment = await soundCircleService.createComment(soundByteId, commentFormData);
     setSoundByte({ ...soundByte, comments: [...soundByte.comments, newComment] });
   };
   const { soundByteId } = useParams();
@@ -28,7 +28,7 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
   useEffect(() => {
     const fetchSoundByte = async () => {
       //confirm names align across files
-      const soundByteData = await soundByteService.show(soundByteId);
+      const soundByteData = await soundCircleService.show(soundByteId);
       setSoundByte(soundByteData);
     };
     fetchSoundByte();
