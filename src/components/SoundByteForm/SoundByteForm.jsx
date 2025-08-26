@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import styles from './SoundByteForm.module.css';
 
-import * as soundByteService from '../../services/soundByteService';
+import * as soundCircleService from '../../services/soundCircleService';
 
 const SoundByteForm = (props) => {
   const { soundByteId } = useParams();
@@ -19,13 +19,13 @@ const SoundByteForm = (props) => {
 
   useEffect(() => {
     const fetchSoundByte = async () => {
-      const soundByteData = await soundByteService.show(soundByteId);
+      const soundByteData = await soundCircleService.show(soundByteId);
       setFormData(soundByteData);
     };
     if (soundByteId) fetchSoundByte();
 
     // Add a cleanup function
-    return () => setFormData({ artist: '', title: '', album: '', url: '', notes: '', notes: '', });
+    return () => setFormData({ artist: '', title: '', album: '', url: '', notes: '', });
     // ENSURE ALIGNS WITH SOUNDBYTE MODEL IN BE// 
   }, [soundByteId]);
 

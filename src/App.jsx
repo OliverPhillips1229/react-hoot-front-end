@@ -2,49 +2,48 @@ import { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
 
 import NavBar from './components/NavBar/NavBar';
-import SignUpForm from './components/SignUpForm/SignUpForm';
-import SignInForm from './components/SignInForm/SignInForm';
+import CircleSignUpForm from './components/SignUpForm/CircleSignUpForm';
+import CircleSignInForm from './components/SignInForm/CircleSignInForm';
 import Landing from './components/Landing/Landing';
-import HootList from './components/HootList/HootList';
-import HootDetails from './components/HootDetails/HootDetails';
-import HootForm from './components/HootForm/HootForm';
+import SoundByteList from './components/SoundByteList/SoundByteList';
+import SoundByteDetails from './components/SoundByteDetails/SoundByteDetails';
+import SoundByteForm from './components/SoundByteForm/SoundByteForm';
 
 import { UserContext } from './contexts/UserContext';
 
-import * as hootService from './services/hootService';
+import * as soundCircleService from './services/soundCircleService';
 
 const App = () => {
   const { user, setUser } = useContext(UserContext);
-  const [hoots, setHoots] = useState([]);
+  const [soundBytes, setSoundBytes] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAllHoots = async () => {
-      const hootsData = await hootService.index();
+    const fetchAllSoundBytes = async () => {
+      const soundBytesData = await soundCircleService.index();
 
       // update to set state:
-      setHoots(hootsData);
+      setSoundBytes(soundBytesData);
     };
-    if (user) fetchAllHoots();
+    if (user) fetchAllSoundBytes();
   }, [user]);
   
-  const handleAddHoot = async (hootFormData) => {
-    const newHoot = await hootService.create(hootFormData);
-    setHoots([newHoot, ...hoots]);
-    navigate('/hoots');
+  const handleAddSoundByte = async (soundByteFormData) => {
+    const newSoundByte = await soundCircleService.create(soundByteFormData);
+    setSoundBytes([newSoundByte, ...soundBytes]);
+    navigate('/soundbytes');
   };
 
-  const handleDeleteHoot = async (hootId) => {
-    const deletedHoot = await hootService.deleteHoot(hootId);
-    // Filter state using deletedHoot._id:
-    setHoots(hoots.filter((hoot) => hoot._id !== deletedHoot._id));
-    navigate('/hoots');
+  const handleDeleteSoundByte = async (soundByteId) => {
+    const deletedSoundByte = await soundCircleService.deleteSoundByte(soundByteId);
+    setSoundBytes(soundBytes.filter((soundByte) => soundByte._id !== deletedSoundByte._id));
+    navigate('/soundbytes');
   };
 
-  const handleUpdateHoot = async (hootId, hootFormData) => {
-  const updatedHoot = await hootService.update(hootId, hootFormData);
-  setHoots(hoots.map((hoot) => (hootId === hoot._id ? updatedHoot : hoot)));
-  navigate(`/hoots/${hootId}`);
+  const handleUpdateSoundByte = async (soundByteId, soundByteFormData) => {
+  const updatedSoundByte = await soundCircleService.update(soundByteId, soundByteFormData);
+  setSoundBytes(soundBytes.map((soundByte) => (soundByteId === soundByte._id ? updatedSoundByte : soundByte)));
+  navigate(`/soundbhytes/${soundByteId}`);
 };
 
 
@@ -61,16 +60,16 @@ const App = () => {
   <Route path='/' element={<Landing />} />
         {user ? (
           <>
-            <Route path='/hoots' element={<HootList hoots={hoots}/>} />
-            <Route path='/hoots/:hootId' element={<HootDetails handleDeleteHoot={handleDeleteHoot}/>} />
-            <Route path='/hoots/new' element={<HootForm handleAddHoot={handleAddHoot} />} />
-            <Route path='/hoots/:hootId/edit' element={<HootForm handleUpdateHoot={handleUpdateHoot}/>} />
+            <Route path='/soundbytes' element={<SoundByteList soundBytes={soundBytes}/>} />
+            <Route path='/soundBytes/:soundByteId' element={<SoundByteDetails handleDeleteSoundByte={handleDeleteSoundByte}/>} />
+            <Route path='/soundbytes/new' element={<SoundByteForm handleAddSoundByte={handleAddSoundByte} />} />
+            <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
           </>
         ) : (
           <>
             {/* Non-user routes (available only to guests) */}
-            <Route path='/sign-up' element={<SignUpForm />} />
-            <Route path='/sign-in' element={<SignInForm />} />
+            <Route path='/sign-up' element={<CircleSignUpForm />} />
+            <Route path='/sign-in' element={<CircleSignInForm />} />
           </>
         )}
       </Routes>
