@@ -8,6 +8,7 @@ import Landing from './components/Landing/Landing';
 import SoundByteList from './components/SoundByteList/SoundByteList';
 import SoundByteDetails from './components/SoundByteDetails/SoundByteDetails';
 import SoundByteForm from './components/SoundByteForm/SoundByteForm';
+import Playlist from './components/Playlist/Playlist';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -43,7 +44,7 @@ const App = () => {
   const handleUpdateSoundByte = async (soundByteId, soundByteFormData) => {
   const updatedSoundByte = await soundCircleService.update(soundByteId, soundByteFormData);
   setSoundBytes(soundBytes.map((soundByte) => (soundByteId === soundByte._id ? updatedSoundByte : soundByte)));
-  navigate(`/soundbhytes/${soundByteId}`);
+  navigate(`/soundbytes/${soundByteId}`);
 };
 
 
@@ -64,6 +65,8 @@ const App = () => {
             <Route path='/soundBytes/:soundByteId' element={<SoundByteDetails handleDeleteSoundByte={handleDeleteSoundByte}/>} />
             <Route path='/soundbytes/new' element={<SoundByteForm handleAddSoundByte={handleAddSoundByte} />} />
             <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
+            <Route path={`/playlist/${user.username}`} element={<Playlist />} />
+         
           </>
         ) : (
           <>
