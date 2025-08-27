@@ -31,7 +31,7 @@ const Landing = () => {
             <p>
             This is a test area
             </p>
-            <footer>
+            <footer>git 
             </footer>
           </article>
         </section>
