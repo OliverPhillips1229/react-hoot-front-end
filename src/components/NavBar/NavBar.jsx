@@ -26,7 +26,7 @@ const NavBar = ({ user, handleSignOut }) => {
         {user ? (
           <>
             <ul className={styles.mainNav}>
-              <li><Link to='/me/jukebox' className={isActive('/')}>PLAYLIST</Link></li>
+              <li><Link to={`/playlist/${user.username}`} className={isActive('/')}>PLAYLIST</Link></li>
               <li>
                 <Link to='/' className={isActive('/')}>
                   FEED
