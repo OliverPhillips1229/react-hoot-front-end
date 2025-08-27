@@ -4,11 +4,14 @@
 
 .container {
   height: 100%;
+  width: 50%;
   display: flex;
   overflow: scroll;
   align-items: center;
   flex-direction: column;
   background-color: var(--card-background);
+  align-self: center;
+  margin: 0 0 0 25%; /* centered it on body */
 }
 
 .container > section {
@@ -42,7 +45,10 @@
 
 .container h1 {
   margin: 0 0 7px 0;
+  color:  #2B6670;
 }
+
+
 
 .container header > p {
   margin: 0;
@@ -129,7 +135,7 @@
 .container form button {
   color: white;
   font-weight: 600;
-  background: #00a0df;
+  background: #2B6670;
   width: 40px;
   height: 40px;
   margin: 0 0 0 14px;
@@ -142,4 +148,8 @@
 .container form button img {
   width: 25px;
   height: 25px;
+}
+
+.container form button:hover {
+background: #D84D2E;
 }
