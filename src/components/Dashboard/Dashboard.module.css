@@ -2,13 +2,13 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  text-align: center; /* Center layout */
+  text-align: center;
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVQYV2NkYGD4z8DAwMgAB//+ADMEgF8AAAEQABYQ9OAAAAAASUVORK5CYII=');
-  background-color: #e6f0fa;
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content */
+  align-items: center;
 }
 
 .welcome {
@@ -76,10 +76,10 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #8d8d8d;
   padding: 1rem;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   max-width: 600px;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .playButton {
-  background-color: #D84D2E;
+  background-color: #2B6670;
   color: white;
   border: none;
   border-radius: 4px;
@@ -172,7 +172,7 @@
 }
 
 .userAvatar {
-  width: 24px; /* Smaller friend avatars */
+  width: 24px;
   height: 24px;
   border-radius: 50%;
   object-fit: cover;
