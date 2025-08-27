@@ -38,8 +38,8 @@ const NavBar = ({ user, handleSignOut }) => {
               </li>
               <li>
                 <Link
-                  to='/sound-bytes/new'
-                  className={`${styles.newPostBtn} ${isActive('/sound-bytes/new')}`}
+                  to='/soundbytes/new'
+                  className={`${styles.newPostBtn} ${isActive('/soundbytes/new')}`}
                 >
                   + NEW SOUND
                 </Link>
