@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [soundBytes, setSoundBytes] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
+  //const [progress, setProgress] = useState(0);
   const [bio, setBio] = useState('This user has no bio'); // Local bio state
   const [editingBio, setEditingBio] = useState(false);
   const [bioFormData, setBioFormData] = useState('');
@@ -172,10 +172,10 @@ const Dashboard = () => {
               <button onClick={handlePlayPause} className={styles.playButton}>{isPlaying ? 'Pause' : 'Play'}</button>
               <button onClick={handleNext}>Next</button>
             </div>
-            <div className={styles.progress}>
+            {/* <div className={styles.progress}>
               <progress value={progress} max="100" />
               <span>0:00 / 3:33</span>
-            </div>
+            </div> */}
           </div>
           <p className={styles.trackCount}>{currentIndex + 1} of {soundBytes.length}</p>
           {user && (
