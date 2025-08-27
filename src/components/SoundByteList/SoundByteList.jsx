@@ -6,11 +6,25 @@ const SoundByteList = (props) => {
   console.log(props)
   return (
 
-    <main>
-      <h1>Here are all your SoundBytes!</h1>
 
-      {props.soundBytes.map((soundByte) => (
-        <p>{soundByte.artist}</p>
+    <main className={styles.container}>
+      {props.soundBytes.length === 0 && <p>No SoundBytes found.</p>}
+      {props.soundBytes.map((soundByte, idx) => (
+        <article key={soundByte.id || idx} className={styles.article}>
+          <header>
+            <h2> 
+              {/* update to match SoundByte ERD */}
+              {soundByte.title
+                ? soundByte.title
+                : soundByte.id
+                  ? `SoundByte #${soundByte.id}`
+                  : soundByte.text
+                    ? 'SoundByte'
+                    : 'Untitled SoundByte'}
+            </h2>
+          </header>
+          <p>{soundByte.text || 'No text provided.'}</p>
+        </article>
       ))}
 
     </main>
