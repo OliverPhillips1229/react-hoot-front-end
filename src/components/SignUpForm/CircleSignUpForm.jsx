@@ -32,6 +32,7 @@ const SignUpForm = () => {
     } catch (err) {
       setMessage(err.message);
     }
+    console.log(formData);
   };
 
   const isFormInvalid = () => {
@@ -49,7 +50,7 @@ const SignUpForm = () => {
             <input
               type='text'
               name='email'
-              value={email}
+              value={formData.email}
               onChange={handleChange}
               required
               autoComplete='off'
