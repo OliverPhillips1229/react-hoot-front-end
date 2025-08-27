@@ -63,14 +63,14 @@ const Landing = () => {
             story, or shared song, you’re helping to weave a richer tapestry of voices 
             and experiences, ensuring that the music doesn’t just play, but resonates.
             </p>
-            <footer>git 
+            <footer>
             </footer>
           </article>
         </section>
       </main>
 
       <footer className={styles.footer}>
-        
+        © SoundCircle 2025
       </footer>
     </>
   );
