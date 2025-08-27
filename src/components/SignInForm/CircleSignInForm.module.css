@@ -56,9 +56,9 @@ button {
 }
 
 .container button {
-  color: white;
+  color: rgb(255, 255, 255);
   font-weight: 600;
-  background: #00a0df;
+  background: #2B6670;
   margin: 21px 0px 0px 0px;
 }
 
