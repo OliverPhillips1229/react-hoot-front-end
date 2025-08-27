@@ -4,8 +4,7 @@ const Landing = () => {
   return (
     <>
       <main className={styles.container}>
-        <section className={styles.splash}>
-        </section>
+        <img src='public/SC-Transparent.png' alt='Sound Circle Logo'></img>
         <section className={styles.about}>
           <header>
             <h3>This is a test area</h3>
