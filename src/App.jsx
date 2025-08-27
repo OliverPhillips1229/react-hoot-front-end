@@ -67,7 +67,7 @@ const App = () => {
             <Route path='/soundbytes/:soundByteId' element={<SoundByteDetails handleDeleteSoundByte={handleDeleteSoundByte}/>} />
             <Route path='/soundbytes/new' element={<SoundByteForm handleAddSoundByte={handleAddSoundByte} />} />
             <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
-            <Route path={`/playlist/${user.username}`} element={<Playlist />} />
+            {/* <Route path={`/playlist/${user.username}`} element={<Playlist />} /> */}
           </>
         ) : (
           <>
