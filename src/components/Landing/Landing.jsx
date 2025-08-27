@@ -69,6 +69,7 @@ const Landing = () => {
       </main>
 
       <footer className={styles.footer}>
+        
       </footer>
     </>
   );
