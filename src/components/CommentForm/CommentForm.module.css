@@ -1,4 +1,4 @@
-/* src/components/CommentForm/CommentForm.module.css */
+/* src/components/CommentForm/CommentForm.module.css
 
 .container {
   height: 100%;
@@ -25,4 +25,4 @@
 input:focus, select:focus, textarea:focus {
   outline: none;
   border: 1px solid var(--primary);
-}
+} */
