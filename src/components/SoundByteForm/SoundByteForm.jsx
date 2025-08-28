@@ -12,7 +12,7 @@ const SoundByteForm = (props) => {
     title: '',
     album: '',
     url: '',
-    notes: '', // ENSURE ALIGNS WITH SOUNDBYTE MODEL IN BE// 
+    notes: '',
     createdAt: new Date().toISOString(),
     author: user ? user.username : 'Anonymous',
   });
@@ -26,7 +26,6 @@ const SoundByteForm = (props) => {
 
     // Add a cleanup function
     return () => setFormData({ artist: '', title: '', album: '', url: '', notes: '', });
-    // ENSURE ALIGNS WITH SOUNDBYTE MODEL IN BE// 
   }, [soundByteId]);
 
 
@@ -105,7 +104,7 @@ const SoundByteForm = (props) => {
           onChange={handleChange}
         />
         
-        <button type='submit' disabled={!formData.title || !formData.text}>SUBMIT</button>
+        <button type='submit'>SUBMIT</button>
       </form>
     </main>
   );
