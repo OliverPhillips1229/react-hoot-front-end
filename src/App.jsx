@@ -26,7 +26,7 @@ const App = () => {
       const soundBytesData = await soundCircleService.index();
       setSoundBytes(soundBytesData);
     };
-    // Only prefetch on routes that use soundbytes
+    // Only prefetch on routes that use soundbytes, to avoid unnecessary fetches
     if (user && (pathname.startsWith('/soundbytes') || pathname.startsWith('/soundBytes'))) {
       fetchAllSoundBytes();
     }
