@@ -1,10 +1,11 @@
 import styles from './Landing.module.css';
+import logo from '../../assets/images/SC-Transparent.png'
 
 const Landing = () => {
   return (
     <>
       <main className={styles.container}>
-        <img src='public/SC-Transparent.png' alt='Sound Circle Logo'></img>
+        <img src={logo} alt='Sound Circle Logo'></img>
         <section className={styles.about}>
           <header>
             <h3>About us</h3>
@@ -62,14 +63,14 @@ const Landing = () => {
             story, or shared song, you’re helping to weave a richer tapestry of voices 
             and experiences, ensuring that the music doesn’t just play, but resonates.
             </p>
-            <footer>git 
+            <footer>
             </footer>
           </article>
         </section>
       </main>
 
       <footer className={styles.footer}>
-        
+        © SoundCircle 2025
       </footer>
     </>
   );
