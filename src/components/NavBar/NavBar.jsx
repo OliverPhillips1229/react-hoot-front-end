@@ -45,6 +45,14 @@ const NavBar = ({ user, handleSignOut }) => {
                   + NEW SOUND
                 </Link>
               </li>
+              <li>
+                <Link
+                  to='/soundbytes/'
+                  className={`${styles.newPostBtn} ${isActive('/soundbytes/')}`}
+                >
+                  SOUNDBYTES
+                </Link>
+              </li>
             </ul>
 
             <div className={styles.userSection}>
