@@ -9,7 +9,7 @@ import Landing from './components/Landing/Landing';
 import SoundByteList from './components/SoundByteList/SoundByteList';
 import SoundByteDetails from './components/SoundByteDetails/SoundByteDetails';
 import SoundByteForm from './components/SoundByteForm/SoundByteForm';
-import Playlist from './components/Playlist/Playlist';
+import Profile from './components/Dashboard/Dashboard';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -26,11 +26,8 @@ const App = () => {
       const soundBytesData = await soundCircleService.index();
       setSoundBytes(soundBytesData);
     };
-    // Only prefetch on routes that use soundbytes, to avoid unnecessary fetches
-    if (user && (pathname.startsWith('/soundbytes') || pathname.startsWith('/soundBytes'))) {
-      fetchAllSoundBytes();
-    }
-  }, [user, pathname]);
+    if (user) fetchAllSoundBytes();
+  }, [user]);
   
   const handleAddSoundByte = async (soundByteFormData) => {
     const newSoundByte = await soundCircleService.create(soundByteFormData);
@@ -45,12 +42,10 @@ const App = () => {
   };
 
   const handleUpdateSoundByte = async (soundByteId, soundByteFormData) => {
-  const updatedSoundByte = await soundCircleService.update(soundByteId, soundByteFormData);
-  setSoundBytes(soundBytes.map((soundByte) => (soundByteId === soundByte._id ? updatedSoundByte : soundByte)));
-  navigate(`/soundbytes/${soundByteId}`);
-};
-
-
+    const updatedSoundByte = await soundCircleService.update(soundByteId, soundByteFormData);
+    setSoundBytes(soundBytes.map((soundByte) => (soundByteId === soundByte._id ? updatedSoundByte : soundByte)));
+    navigate(`/soundbytes/${soundByteId}`);
+  };
 
   const handleSignOut = () => {
     setUser(null);
@@ -59,25 +54,30 @@ const App = () => {
 
   return (
     <>
-  <NavBar user={user} handleSignOut={handleSignOut}/>
+      <NavBar user={user} handleSignOut={handleSignOut} />
       <Routes>
-  <Route path='/' element={<Landing />} />
+        <Route path="/" element={<Landing />} />
         {user ? (
           <>
+            <Route path="/soundbytes" element={<SoundByteList soundBytes={soundBytes} />} />
+            <Route path="/soundbytes/:soundByteId" element={<SoundByteDetails handleDeleteSoundByte={handleDeleteSoundByte} />} />
+            <Route path="/soundbytes/:soundByteId/edit" element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte} />} />
+            <Route path="/soundbytes/new" element={<SoundByteForm handleAddSoundByte={handleAddSoundByte} />} />
+            <Route path="/profile/:username" element={<Profile />} /> {/* Add this route */}
             <Route path='/soundbytes' element={<SoundByteList soundBytes={soundBytes}/>} />
-            <Route path='/soundBytes/:soundByteId' element={<SoundByteDetails handleDeleteSoundByte={handleDeleteSoundByte}/>} />
+            {/* changed SoundByteList path from /soundbytes to /sBytes to match BE/DB */}
+            <Route path='/soundbytes/:soundByteId' element={<SoundByteDetails handleDeleteSoundByte={handleDeleteSoundByte}/>} />
             <Route path='/soundbytes/new' element={<SoundByteForm handleAddSoundByte={handleAddSoundByte} />} />
             <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
-            <Route path={`/playlist/${user.username}`} element={<Playlist />} />
-         
+            {/* <Route path={`/playlist/${user.username}`} element={<Playlist />} /> */}
           </>
         ) : (
           <>
-            {/* Non-user routes (available only to guests) */}
-            <Route path='/sign-up' element={<CircleSignUpForm />} />
-            <Route path='/sign-in' element={<CircleSignInForm />} />
+            <Route path="/sign-up" element={<CircleSignUpForm />} />
+            <Route path="/sign-in" element={<CircleSignInForm />} />
           </>
         )}
+        <Route path="/discover" element={<div>Discover Page (Placeholder)</div>} /> {/* Add this route with a placeholder */}
       </Routes>
     </>
   );

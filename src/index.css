@@ -12,6 +12,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: sans-serif;
   background-image: url("https://assets.qz.com/media/6f2636ace242424c3ebd079da714c22b.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 
   --primary: #00a0df;
   --background: #f2f4f8;

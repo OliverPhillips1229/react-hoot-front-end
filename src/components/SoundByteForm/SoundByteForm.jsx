@@ -51,11 +51,10 @@ const SoundByteForm = (props) => {
 
   return (
     <main className={styles.container}>
-      {/* Add a heading */}
-      <h1>{soundByteId ? 'Edit SoundByte' : 'New SoundByte'}</h1>
       <form onSubmit={handleSubmit}>
-        {/* Form labels and inputs */}
+      <h1>{soundByteId ? 'Edit SoundByte' : 'New SoundByte'}</h1>
 
+        {/* Form labels and inputs */}
         <label htmlFor='artist-input'>Artist</label>
         <textarea
           required
@@ -96,7 +95,7 @@ const SoundByteForm = (props) => {
           onChange={handleChange}
         />
 
-        <label htmlFor='notes-input'>Text</label>
+        <label htmlFor='notes-input'>Notes</label>
         <textarea
           required
           type='text'

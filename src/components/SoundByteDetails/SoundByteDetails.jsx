@@ -46,7 +46,7 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
           <h3>{soundByte.artist}</h3>
           <h3>{soundByte.album}</h3>
           <h4>{soundByte.url}</h4>
-          <p>{soundByte.notes}</p>
+          <h5>{soundByte.notes}</h5>
           <div>
             <AuthorInfo content={soundByte} />
             {soundByte.author._id === user._id && (

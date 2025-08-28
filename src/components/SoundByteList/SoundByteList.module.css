@@ -42,6 +42,10 @@
   -webkit-box-shadow: -1px 5px 19px -5px rgba(0, 0, 0, 0.25);
 }
 
+.container article:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
 .container article header {
   margin-bottom: 14px;
 }
@@ -55,6 +59,10 @@
   line-clamp: 1;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
+}
+
+.container article h1 {
+  color:  #2B6670;
 }
 
 .container article p {
