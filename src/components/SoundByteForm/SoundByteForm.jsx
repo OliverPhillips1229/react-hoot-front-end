@@ -13,8 +13,6 @@ const SoundByteForm = (props) => {
     album: '',
     url: '',
     notes: '',
-    createdAt: new Date().toISOString(),
-    author: user ? user.username : 'Anonymous',
   });
 
   useEffect(() => {
@@ -35,15 +33,10 @@ const SoundByteForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const soundByteData = {
-      ...formData,
-      createdAt: new Date().toISOString(),
-      author: user ? user.username : 'Anonymous',
-    };
     if (soundByteId) {
-      props.handleUpdateSoundByte(soundByteId, soundByteData);
+      props.handleUpdateSoundByte(soundByteId, formData);
     } else {
-      props.handleAddSoundByte(soundByteData);
+      props.handleAddSoundByte(formData);
     }
   };
 
