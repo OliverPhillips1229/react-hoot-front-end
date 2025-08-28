@@ -33,7 +33,7 @@ const qs = (query) => {
 // --- Fetch wrapper ---------------------------------------------------------
 async function req(
   path,
-  { method = 'GET', body, auth = false, query, headers = {}, timeout } = {}
+  { method = 'GET', body, auth = false, query, headers = {}, timeout, cache } = {}
 ) {
   const url = join(path) + (query ? qs(query) : '');
 
@@ -54,6 +54,8 @@ async function req(
     headers: hdrs,
     body: body ? (isFormData ? body : JSON.stringify(body)) : undefined,
     signal: controller?.signal,
+    // Avoid 304 responses that return no body by defaulting to no-store
+    cache: cache || (method === 'GET' ? 'no-store' : undefined),
   });
 
   // Parse body (try JSON, then text, allow 204)
@@ -88,11 +90,11 @@ export const api = {
   unlikeSoundByte: (id) => req(`/sBytes/${id}/unlike`, { method: 'POST', auth: true }),
 
   // tracks
-  // Accepts either a string (q) or an object { q, limit, page }
+  // Accepts either a string (q) or an object { q, limit, page, auth }
   listTracks: (arg) => {
-    if (typeof arg === 'string') return req('/tracks', { query: { q: arg } });
-    const { q = '', limit = 10, page = 1 } = arg || {};
-    return req('/tracks', { query: { q, limit, page } });
+    if (typeof arg === 'string') return req('/tracks', { query: { q: arg }, auth: true });
+    const { q = '', limit = 10, page = 1, auth = true } = arg || {};
+    return req('/tracks', { query: { q, limit, page }, auth });
   },
   getTrack:    (id) => req(`/tracks/${id}`),
   createTrack: (p)  => req('/tracks', { method: 'POST', body: p, auth: true }),
@@ -100,7 +102,7 @@ export const api = {
   deleteTrack: (id) => req(`/tracks/${id}`, { method: 'DELETE', auth: true }),
 
   // playlist endpoints
-  getPlaylist: (userId, { auth = false } = {}) => req(`/users/${userId}/playlist`, { auth }),
+  getPlaylist: (userId, { auth = true } = {}) => req(`/users/${userId}/playlist`, { auth, cache: 'no-store' }),
   addToPlaylist: (userId, { trackId, track }) =>
     req(`/users/${userId}/playlist`, {
       method: 'POST',

@@ -1,26 +1,46 @@
 /* Playlist.module.css */
 
-.container {
-  padding: 16px;
+.page {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.cardWrap {
+  width: 100%;
+  max-width: 780px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  padding: 18px 20px;
 }
 
 .heading {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 14px;
+  text-align: center;
 }
 
 .subheading {
   font-size: 18px;
   font-weight: 600;
   margin: 24px 0 8px;
+  text-align: center;
+}
+
+.listWrap {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 4px; /* room for scrollbar */
 }
 
 .list {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 720px;
+  width: 100%;
 }
 
 .card {
@@ -85,6 +105,34 @@
 .inputs {
   display: grid;
   gap: 8px;
+}
+
+.form {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.formCard {
+  max-width: 520px;
+  margin: 0 auto 16px;
+  background: #1f1f1f; /* same as .card */
+  color: #fff;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 16px;
+}
+
+.form .textInput {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid var(--border);
+}
+
+.submit {
+  background: #eeeeee;
+  color: #111;
+  border: 1px solid var(--border);
 }
 .textInput {
   width: 100%;

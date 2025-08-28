@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 
 import NavBar from './components/NavBar/NavBar';
 import CircleSignUpForm from './components/SignUpForm/CircleSignUpForm';
@@ -18,16 +19,18 @@ const App = () => {
   const { user, setUser } = useContext(UserContext);
   const [soundBytes, setSoundBytes] = useState([]);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const fetchAllSoundBytes = async () => {
       const soundBytesData = await soundCircleService.index();
-
-      // update to set state:
       setSoundBytes(soundBytesData);
     };
-    if (user) fetchAllSoundBytes();
-  }, [user]);
+    // Only prefetch on routes that use soundbytes
+    if (user && (pathname.startsWith('/soundbytes') || pathname.startsWith('/soundBytes'))) {
+      fetchAllSoundBytes();
+    }
+  }, [user, pathname]);
   
   const handleAddSoundByte = async (soundByteFormData) => {
     const newSoundByte = await soundCircleService.create(soundByteFormData);

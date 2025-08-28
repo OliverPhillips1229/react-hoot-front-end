@@ -1,100 +1,69 @@
 // src/services/playlistService.js
-import api from './api';
+// Front-end only service for Playlist. No jukebox usage.
 
-// ---- Fallback storage (when /users/:id/playlist is not implemented) ----
-const keyForUser = (userId) => `sc_playlist_${userId || 'guest'}`;
-const readLocal = (userId) => {
-  try { return JSON.parse(localStorage.getItem(keyForUser(userId)) || '[]'); }
-  catch { return []; }
+const rawBase = (import.meta?.env?.VITE_API_URL || import.meta?.env?.VITE_BACK_END_SERVER_URL || 'http://localhost:3000');
+const BASE = String(rawBase).replace(/\/+$/, ''); // no trailing slash
+
+const authHeader = () => {
+  const t = localStorage.getItem('token');
+  return t ? { Authorization: `Bearer ${t}` } : {};
 };
-const writeLocal = (userId, items) => localStorage.setItem(keyForUser(userId), JSON.stringify(items));
 
-// Remember if backend playlist endpoints are available to reduce console noise
-let playlistApiAvailable = null; // null=unknown, true/false=known
-
-/**
- * Playlist service backed by the API playlist endpoints.
- * Note: use a userId (not username) when calling these.
- */
-
-export const list = async (userId) => {
-  if (!userId) return [];
-  // If we already know API isn't available, use local
-  if (playlistApiAvailable === false) return readLocal(userId);
-  try {
-    const res = await api.getPlaylist(userId, { auth: true });
-    playlistApiAvailable = true;
-    if (Array.isArray(res)) return res;
-    return res?.items || res?.tracks || res?.data || [];
-  } catch (err) {
-    if (err?.status === 404) {
-      playlistApiAvailable = false;
-      return readLocal(userId);
-    }
+async function request(path, { method = 'GET', body } = {}) {
+  const url = `${BASE}${path.startsWith('/') ? path : `/${path}`}`;
+  const res = await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json', ...authHeader() },
+    body: body ? JSON.stringify(body) : undefined,
+    cache: method === 'GET' ? 'no-store' : undefined,
+  });
+  const text = await res.text();
+  let data;
+  try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+  if (!res.ok) {
+    const err = new Error((data && (data.err || data.message)) || res.statusText);
+    err.status = res.status;
+    err.data = data;
     throw err;
   }
-};
+  return data;
+}
 
-export const add = async (
-  userId,
-  { title, artist, coverArtUrl, soundClipUrl, sourceUrl, genre }
-) => {
+export async function getPlaylist(userId) {
+  if (!userId) return [];
+  return request(`/users/${userId}/_playlist`);
+}
+
+export async function addToPlaylist(userId, { title, artist, coverArtUrl, soundClipUrl, sourceUrl, genre }) {
   if (!userId) throw new Error('Missing user id');
   if (!title?.trim() || !artist?.trim()) throw new Error('Title and artist are required');
 
-  // 1) Ensure the track exists
-  const track = await api.createTrack({
-    title: title.trim(),
-    artist: artist.trim(),
-    coverArtUrl,
-    soundClipUrl,
-    sourceUrl,
-    genre,
-  });
-  const createdId = track?._id || track?.id;
-
-  // 2) Try to add to the user's playlist (API) if available
-  if (playlistApiAvailable !== false) {
-    try {
-      await api.addToPlaylist(userId, { trackId: createdId, track });
-      playlistApiAvailable = true;
-      // 3) Return the updated playlist from API
-      return list(userId);
-    } catch (err) {
-      if (err?.status !== 404) throw err;
-      playlistApiAvailable = false;
-      // fall through to local below
-    }
+  // a) Try to create the track
+  let trackDoc;
+  try {
+    trackDoc = await request('/tracks', {
+      method: 'POST',
+      body: { title: title.trim(), artist: artist.trim(), coverArtUrl, soundClipUrl, sourceUrl, genre },
+    });
+  } catch (err) {
+    if (err.status !== 409) throw err; // not a duplicate — rethrow
+    // b) On 409 duplicate, fallback to search and take first result
+    const q = `${title} ${artist}`.trim();
+    const params = new URLSearchParams({ q, limit: '1', page: '1' });
+    const results = await request(`/tracks?${params.toString()}`);
+    const list = Array.isArray(results) ? results : (results?.items || results?.tracks || results?.data || []);
+    if (!list.length) throw new Error('Track already exists but search returned no results');
+    trackDoc = list[0];
   }
 
-  // Backend playlist not available — use local fallback
-  const items = readLocal(userId);
-  if (!items.find((t) => (t?._id || t?.id) === createdId)) {
-    items.unshift(track);
-    writeLocal(userId, items);
-  }
-  return items;
-};
+  const id = trackDoc?._id || trackDoc?.id;
+  if (!id) throw new Error('Could not resolve track id');
 
-export const remove = async (userId, trackId) => {
-  if (!userId) throw new Error('Missing user id');
-  if (playlistApiAvailable !== false) {
-    try {
-      await api.removeFromPlaylist(userId, trackId);
-      playlistApiAvailable = true;
-      return list(userId);
-    } catch (err) {
-      if (err?.status !== 404) throw err;
-      playlistApiAvailable = false;
-      // fall through to local below
-    }
-  }
-  const items = readLocal(userId).filter((t) => (t?._id || t?.id) !== trackId);
-  writeLocal(userId, items);
-  return items;
-};
+  // c) Add to the user playlist via _playlist using { trackId }
+  await request(`/users/${userId}/_playlist`, { method: 'POST', body: { trackId: id } });
+}
 
-export const clear = async (_userId) => {
-  // Not supported on API yet; keep client clear as no-op
-  return [];
-};
+export async function removeFromPlaylist(userId, itemId) {
+  if (!userId || !itemId) throw new Error('Missing parameters');
+  return request(`/users/${userId}/_playlist/${itemId}`, { method: 'DELETE' });
+}
