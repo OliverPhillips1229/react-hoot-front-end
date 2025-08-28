@@ -19,7 +19,7 @@ const App = () => {
   const { user, setUser } = useContext(UserContext);
   const [soundBytes, setSoundBytes] = useState([]);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   useEffect(() => {
     const fetchAllSoundBytes = async () => {
@@ -27,10 +27,10 @@ const App = () => {
       setSoundBytes(soundBytesData);
     };
     // Only prefetch on routes that use soundbytes, to avoid unnecessary fetches
-    if (user && (pathname.startsWith('/soundbytes') || pathname.startsWith('/soundBytes'))) {
-      fetchAllSoundBytes();
-    }
-  }, [user, pathname]);
+    // if (user && (pathname.startsWith('/soundbytes') || pathname.startsWith('/soundBytes'))) {
+    fetchAllSoundBytes();
+    // }
+  }, [user]);
   
   const handleAddSoundByte = async (soundByteFormData) => {
     const newSoundByte = await soundCircleService.create(soundByteFormData);

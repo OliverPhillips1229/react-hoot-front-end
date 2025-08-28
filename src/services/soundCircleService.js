@@ -1,5 +1,5 @@
 // Match backend route defined in be/server.js: app.use("/sBytes", ...)
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/sBytes`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/soundbytes`;
 
 const index = async () => {
   try {
