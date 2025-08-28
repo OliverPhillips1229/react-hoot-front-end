@@ -69,7 +69,7 @@ const deleteSoundByte = async (soundByteId) => {
   }
 };
 
-async function update(soundByteId, soundByteFormData) {
+const update = async (soundByteId, soundByteFormData) => {
   try {
     const res = await fetch(`${BASE_URL}/${soundByteId}`, {
       method: 'PUT',
