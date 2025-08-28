@@ -29,7 +29,7 @@ const NavBar = ({ user, handleSignOut }) => {
               <li><Link to={`/playlist/${user.username}`} className={isActive('/')}>PLAYLIST</Link></li>
               <li>
                 <Link to='/' className={isActive('/')}>
-                  FEED
+                  HOME
                 </Link>
               </li>
               <li>
