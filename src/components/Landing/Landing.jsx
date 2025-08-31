@@ -34,7 +34,7 @@ const Landing = () => {
           </article>
         </section>
 
-        <section className={styles.testimonial}>
+        <section className={styles.contentBox}>
           <header>
             <h3>But why music?</h3>
             <h1>And why now?!</h1>
