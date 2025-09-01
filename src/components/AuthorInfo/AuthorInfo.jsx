@@ -1,8 +1,12 @@
 import styles from './AuthorInfo.module.css';
 import ProfileIcon from '../../assets/images/profile.png';
 import Icon from '../Icon/Icon';
+import { useEffect } from 'react';
 
 const AuthorInfo = ({ content }) => {
+  useEffect(() => {
+    console.log(content)
+  },[content])
   return (
     <div className={styles.container}>
       <img
@@ -10,7 +14,7 @@ const AuthorInfo = ({ content }) => {
         alt="The user's avatar"
       />
       <section>
-        <p>{content.author.username}</p>
+        <p>{content.author?.username}</p>
         <div className={styles.container}>
           <Icon category='Calendar' />
           <p>{new Date(content.createdAt).toLocaleDateString()}</p>

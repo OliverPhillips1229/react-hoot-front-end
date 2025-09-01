@@ -49,7 +49,7 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
           <h5>{soundByte.notes}</h5>
           <div>
             <AuthorInfo content={soundByte} />
-            {soundByte.author._id === user._id && (
+            {soundByte.author?._id === user._id && (
               <>
                 <Link to={`/soundBytes/${soundByteId}/edit`}>
                   <Icon category='Edit' />
