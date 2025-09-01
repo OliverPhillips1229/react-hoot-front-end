@@ -4,9 +4,6 @@ import Icon from '../Icon/Icon';
 import { useEffect } from 'react';
 
 const AuthorInfo = ({ content }) => {
-  useEffect(() => {
-    console.log(content)
-  },[content])
   return (
     <div className={styles.container}>
       <img
