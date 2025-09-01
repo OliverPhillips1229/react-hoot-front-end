@@ -9,11 +9,13 @@ import Landing from './components/Landing/Landing';
 import SoundByteList from './components/SoundByteList/SoundByteList';
 import SoundByteDetails from './components/SoundByteDetails/SoundByteDetails';
 import SoundByteForm from './components/SoundByteForm/SoundByteForm';
+import CommentForm from './components/CommentForm/CommentForm';
 import Playlist from './components/Playlist/Playlist';
 
 import { UserContext } from './contexts/UserContext';
 
 import * as soundCircleService from './services/soundCircleService';
+
 
 const App = () => {
   const { user, setUser } = useContext(UserContext);
@@ -68,6 +70,7 @@ const App = () => {
             <Route path='/soundBytes/:soundByteId' element={<SoundByteDetails handleDeleteSoundByte={handleDeleteSoundByte}/>} />
             <Route path='/soundbytes/new' element={<SoundByteForm handleAddSoundByte={handleAddSoundByte} />} />
             <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
+            <Route path='/soundbytes/:soundbyteId/comments/:commentId/edit' element={<CommentForm/>} />
             <Route path={`/playlist/${user.username}`} element={<Playlist />} />
          
           </>

@@ -1,8 +1,11 @@
 import styles from './AuthorInfo.module.css';
 import ProfileIcon from '../../assets/images/profile.png';
 import Icon from '../Icon/Icon';
+// import { useEffect } from 'react';
+// import * as userService from '../../services/userService';
 
 const AuthorInfo = ({ content }) => {
+
   return (
     <div className={styles.container}>
       <img

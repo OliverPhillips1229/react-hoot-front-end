@@ -33,10 +33,13 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
     };
     fetchSoundByte();
   }, [soundByteId]);
-
+// useEffect (()=> {
+//   soundByte?.comments.map((comment) => (fetch(comment.author)))
+// }, soundByte)
+//^from Glenn on how to find what to map over to bring author info up with comment below
   // console.log('soundByte state:', soundByte);
 
-  if (!soundByte) return <Loading />;
+  if (!soundByte) return <Loading />
 
   return (
     <main className={styles.container}>
@@ -63,15 +66,19 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
         </header>
         <p>{soundByte.text}</p>
       </section>
+      
       <section>
         <h2>Comments</h2>
         <CommentForm handleAddComment={handleAddComment} />
+
         {!soundByte.comments?.length && <p>There are no comments.</p>}
+
         {(soundByte.comments || []).map((comment) => (
           <article key={comment._id}>
             <header>
               <div>
                 <AuthorInfo content={comment} />
+                {console.log(soundByte)}
                 {comment.author._id === user._id && (
                   <>
                     <Link to={`/soundBytes/${soundByteId}/comments/${comment._id}/edit`}>
@@ -87,6 +94,7 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
             <p>{comment.text}</p>
           </article>
         ))}
+
       </section>
     </main>
   );
