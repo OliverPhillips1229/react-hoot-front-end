@@ -1,8 +1,10 @@
+
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './CommentForm.module.css';
 import * as soundCircleService from '../../services/soundCircleService'
 // import router from react-router;
+
 
 import Icon from '../Icon/Icon';
 
@@ -37,6 +39,7 @@ const CommentForm = (props) => {
   };
 
 
+
   if (soundbyteId && commentId ) return (
     <main className={styles.containerForm}>
       <form onSubmit={handleSubmit}>
@@ -56,6 +59,7 @@ const CommentForm = (props) => {
       </form>
     </main>
   );
+
 
   return (
     <form onSubmit={handleSubmit}>

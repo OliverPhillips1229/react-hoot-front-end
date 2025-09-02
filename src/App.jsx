@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
-import { useLocation } from 'react-router';
 
 import NavBar from './components/NavBar/NavBar';
 import CircleSignUpForm from './components/SignUpForm/CircleSignUpForm';
@@ -11,6 +10,11 @@ import SoundByteDetails from './components/SoundByteDetails/SoundByteDetails';
 import SoundByteForm from './components/SoundByteForm/SoundByteForm';
 import CommentForm from './components/CommentForm/CommentForm';
 import Playlist from './components/Playlist/Playlist';
+
+import Dashboard from './components/Dashboard/Dashboard';
+
+import Discover from './components/Discover/Discover';
+
 
 import { UserContext } from './contexts/UserContext';
 
@@ -72,6 +76,10 @@ const App = () => {
             <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
             <Route path='/soundbytes/:soundbyteId/comments/:commentId/edit' element={<CommentForm/>} />
             <Route path={`/playlist/${user.username}`} element={<Playlist />} />
+
+            <Route path='/profile/:username' element={<Dashboard />} />
+
+            <Route path='/discover' element={<Discover />} />
          
           </>
         ) : (

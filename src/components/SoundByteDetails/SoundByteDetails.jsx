@@ -38,13 +38,9 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
     };
     fetchSoundByte();
   }, [soundByteId]);
-// useEffect (()=> {
-//   soundByte?.comments.map((comment) => (fetch(comment.author)))
-// }, soundByte)
-//^from Glenn on how to find what to map over to bring author info up with comment below
-  // console.log('soundByte state:', soundByte);
 
-  if (!soundByte) return <Loading />
+  if (!soundByte) return <Loading />;
+
 
   return (
     <main className={styles.container}>
@@ -57,7 +53,7 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
           <h5>{soundByte.notes}</h5>
           <div>
             <AuthorInfo content={soundByte} />
-            {soundByte.author._id === user._id && (
+            {soundByte.author?._id === user._id && (
               <>
                 <Link to={`/soundBytes/${soundByteId}/edit`}>
                   <Icon category='Edit' />
