@@ -28,7 +28,7 @@ const CommentForm = (props) => {
     evt.preventDefault();
     if (commentId) {
       // props.handleUpdateComment(commentId, formData)
-      console.log(soundbyteId, commentId)
+      // console.log(formData.text)
       {soundCircleService.updateComment(soundbyteId, commentId, formData); 
         navigate(`/soundbytes/${soundbyteId}`); }
 
@@ -41,7 +41,7 @@ const CommentForm = (props) => {
 
 
   if (soundbyteId && commentId ) return (
-    <main className={styles.containerForm}>
+    <main className={styles.container}>
       <form onSubmit={handleSubmit}>
         <h1>Edit Comment</h1>
         <label htmlFor='text-input'>Your comment:</label>
