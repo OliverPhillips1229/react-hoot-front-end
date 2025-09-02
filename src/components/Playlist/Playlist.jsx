@@ -19,7 +19,6 @@ export default function Playlist() {
         const data = await api.getPlaylist(user._id, { auth: true });
         setItems(Array.isArray(data) ? data : (data?.items || data?.tracks || []));
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.warn('Failed to load playlist', err);
         setErr(err?.message || 'Could not load playlist');
       }

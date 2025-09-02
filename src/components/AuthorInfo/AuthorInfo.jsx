@@ -1,7 +1,6 @@
 import styles from './AuthorInfo.module.css';
 import ProfileIcon from '../../assets/images/profile.png';
 import Icon from '../Icon/Icon';
-import { useEffect } from 'react';
 
 const AuthorInfo = ({ content }) => {
   return (

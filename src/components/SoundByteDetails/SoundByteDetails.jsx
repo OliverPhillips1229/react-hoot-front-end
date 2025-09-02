@@ -34,8 +34,6 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
     fetchSoundByte();
   }, [soundByteId]);
 
-  // console.log('soundByte state:', soundByte);
-
   if (!soundByte) return <Loading />;
 
   return (

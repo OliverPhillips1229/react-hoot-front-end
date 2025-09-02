@@ -6,7 +6,6 @@ const rawBase = import.meta?.env?.VITE_BACK_END_SERVER_URL;
 const BASE = (rawBase && String(rawBase).replace(/\/+$/, '')) || 'http://localhost:3000';
 
 if (!rawBase) {
-  // eslint-disable-next-line no-console
   console.warn('[api] Using default BASE', BASE, '(set VITE_API_URL or VITE_BACK_END_SERVER_URL to override)');
 }
 
