@@ -106,7 +106,7 @@ export default function Playlist() {
                     </div>
                     <div className={styles.actions}>
                       <button type="button" className={`${styles.btn} ${styles.play}`} disabled={!t.soundClipUrl}
-                              onClick={() => onPlay(t)}>
+                        onClick={() => onPlay(t)}>
                         {isPlaying ? 'Pause' : 'Play'}
                       </button>
                       {/* Placeholder for future edit
@@ -129,4 +129,4 @@ export default function Playlist() {
       </div>
     </div>
   );
-}
+};

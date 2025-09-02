@@ -3,9 +3,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './CommentForm.module.css';
 import * as soundCircleService from '../../services/soundCircleService'
-// import router from react-router;
-
-
 import Icon from '../Icon/Icon';
 
 const CommentForm = (props) => {
@@ -18,7 +15,6 @@ const CommentForm = (props) => {
     }
     return { text: '' };
   });
-// useEffect (() =>{ console.log(props)}, [props]);
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -27,20 +23,16 @@ const CommentForm = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (commentId) {
-      // props.handleUpdateComment(commentId, formData)
-      // console.log(formData.text)
-      {soundCircleService.updateComment(soundbyteId, commentId, formData); 
-        navigate(`/soundbytes/${soundbyteId}`); }
-
+      {
+        soundCircleService.updateComment(soundbyteId, commentId, formData);
+        navigate(`/soundbytes/${soundbyteId}`);
+      }
     } else {
-        props.handleAddComment(formData);
+      props.handleAddComment(formData);
     }
-    // setFormData({ text: '' });
   };
 
-
-
-  if (soundbyteId && commentId ) return (
+  if (soundbyteId && commentId) return (
     <main className={styles.container}>
       <form onSubmit={handleSubmit}>
         <h1>Edit Comment</h1>
@@ -59,7 +51,6 @@ const CommentForm = (props) => {
       </form>
     </main>
   );
-
 
   return (
     <form onSubmit={handleSubmit}>

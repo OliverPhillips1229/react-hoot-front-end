@@ -1,8 +1,6 @@
-//this works//
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import styles from './SoundByteForm.module.css';
-
 import * as soundCircleService from '../../services/soundCircleService';
 
 const SoundByteForm = (props) => {
@@ -21,8 +19,6 @@ const SoundByteForm = (props) => {
       setFormData(soundByteData);
     };
     if (soundByteId) fetchSoundByte();
-
-    // Add a cleanup function
     return () => setFormData({ artist: '', title: '', album: '', url: '', notes: '', });
   }, [soundByteId]);
 
@@ -44,9 +40,8 @@ const SoundByteForm = (props) => {
   return (
     <main className={styles.container}>
       <form onSubmit={handleSubmit}>
-      <h1>{soundByteId ? 'Edit SoundByte' : 'New SoundByte'}</h1>
+        <h1>{soundByteId ? 'Edit SoundByte' : 'New SoundByte'}</h1>
 
-        {/* Form labels and inputs */}
         <label htmlFor='artist-input'>Artist</label>
         <textarea
           required
@@ -96,7 +91,7 @@ const SoundByteForm = (props) => {
           value={formData.notes}
           onChange={handleChange}
         />
-        
+
         <button type='submit'>SUBMIT</button>
       </form>
     </main>

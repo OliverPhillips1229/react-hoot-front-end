@@ -1,4 +1,3 @@
-// Match backend route defined in be/server.js: app.use("/sBytes", ...)
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/soundbytes`;
 
 const index = async () => {
@@ -11,7 +10,6 @@ const index = async () => {
     console.log(error);
   }
 };
-
 
 const show = async (soundByteId) => {
   try {
@@ -39,8 +37,6 @@ const create = async (soundByteFormData) => {
     console.log(error);
   }
 };
-
-
 
 const deleteSoundByte = async (soundByteId) => {
   try {
@@ -120,12 +116,12 @@ const updateComment = async (soundByteId, commentId, commentFormData) => {
 };
 
 export {
-    index, 
-    show, 
-    create, 
-    deleteSoundByte, 
-    update, 
-    createComment, 
-    deleteComment, 
-    updateComment,
+  index,
+  show,
+  create,
+  deleteSoundByte,
+  update,
+  createComment,
+  deleteComment,
+  updateComment,
 };
