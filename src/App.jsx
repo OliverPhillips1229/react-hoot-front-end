@@ -9,7 +9,11 @@ import SoundByteList from './components/SoundByteList/SoundByteList';
 import SoundByteDetails from './components/SoundByteDetails/SoundByteDetails';
 import SoundByteForm from './components/SoundByteForm/SoundByteForm';
 import Playlist from './components/Playlist/Playlist';
+
+import Dashboard from './components/Dashboard/Dashboard';
+
 import Discover from './components/Discover/Discover';
+
 
 import { UserContext } from './contexts/UserContext';
 
@@ -69,6 +73,9 @@ const App = () => {
             <Route path='/soundbytes/new' element={<SoundByteForm handleAddSoundByte={handleAddSoundByte} />} />
             <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
             <Route path={`/playlist/${user.username}`} element={<Playlist />} />
+
+            <Route path='/profile/:username' element={<Dashboard />} />
+
             <Route path='/discover' element={<Discover />} />
          
           </>
