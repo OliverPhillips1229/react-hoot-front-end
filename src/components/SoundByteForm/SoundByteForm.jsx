@@ -6,7 +6,6 @@ import * as soundCircleService from '../../services/soundCircleService';
 
 const SoundByteForm = (props) => {
   const { soundByteId } = useParams();
-  const { user } = props;
   const [formData, setFormData] = useState({
     artist: '',
     title: '',

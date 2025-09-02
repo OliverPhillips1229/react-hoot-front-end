@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import styles from './CommentForm.module.css';
 import Icon from '../Icon/Icon';
 
 const CommentForm = (props) => {
@@ -21,26 +20,6 @@ const CommentForm = (props) => {
     props.handleAddComment(formData);
     setFormData({ text: '' });
   };
-
-  // if (hootId && commentId) return (
-  //   <main className={styles.container}>
-  //     <form onSubmit={handleSubmit}>
-  //       <h1>Edit Comment</h1>
-  //       <label htmlFor='text-input'>Your comment:</label>
-  //       <textarea
-  //         required
-  //         type='text'
-  //         name='text'
-  //         id='text-input'
-  //         value={formData.text}
-  //         onChange={handleChange}
-  //       />
-  //       <button type='submit'>
-  //         <Icon category='Create' />
-  //       </button>
-  //     </form>
-  //   </main>
-  // );
 
   return (
     <form onSubmit={handleSubmit}>
