@@ -22,6 +22,11 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
     const newComment = await soundCircleService.createComment(soundByteId, commentFormData);
     setSoundByte({ ...soundByte, comments: [...soundByte.comments, newComment] });
   };
+  const handleUpdateComment = async(commentId) => {
+    const updatedComment = await soundCircleService.updateComment(soundByteId, commentFormData);
+      setSoundByte({ ...soundByte, comments: [...soundByte.comment, updatedComment] });
+  };
+
   const { soundByteId } = useParams();
   const [soundByte, setSoundByte] = useState(null);
   const { user } = useContext(UserContext);
@@ -69,7 +74,10 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
       
       <section>
         <h2>Comments</h2>
-        <CommentForm handleAddComment={handleAddComment} />
+        <CommentForm 
+        handleAddComment={handleAddComment}
+        handleUpdateComment={handleUpdateComment}
+        />
 
         {!soundByte.comments?.length && <p>There are no comments.</p>}
 
