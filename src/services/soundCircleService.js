@@ -40,21 +40,7 @@ const create = async (soundByteFormData) => {
   }
 };
 
-const createComment = async (soundByteId, commentFormData) => {
-  try {
-    const res = await fetch(`${BASE_URL}/${soundByteId}/comments`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(commentFormData),
-    });
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 
 const deleteSoundByte = async (soundByteId) => {
   try {
@@ -79,6 +65,22 @@ const update = async (soundByteId, soundByteFormData) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(soundByteFormData),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createComment = async (soundByteId, commentFormData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${soundByteId}/comments`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(commentFormData),
     });
     return res.json();
   } catch (error) {
@@ -118,5 +120,12 @@ const updateComment = async (soundByteId, commentId, commentFormData) => {
 };
 
 export {
-    index, show, create, createComment, deleteSoundByte, update, deleteComment, updateComment,
+    index, 
+    show, 
+    create, 
+    deleteSoundByte, 
+    update, 
+    createComment, 
+    deleteComment, 
+    updateComment,
 };

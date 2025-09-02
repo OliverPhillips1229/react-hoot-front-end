@@ -22,6 +22,20 @@ const index = async () => {
   }
 };
 
+const showAuthor = async (authorId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${authorId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+//wrapper for author info
+
+
 export {
   index,
+  showAuthor
 };

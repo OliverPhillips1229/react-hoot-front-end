@@ -1,4 +1,4 @@
-/* src/components/CommentForm/CommentForm.module.css
+/* src/components/CommentForm/CommentForm.module.css */
 
 .container {
   height: 100%;
@@ -25,4 +25,56 @@
 input:focus, select:focus, textarea:focus {
   outline: none;
   border: 1px solid var(--primary);
-} */
+}
+
+
+/*from soundBytedetails.module.css */
+
+.container form {
+  padding: 0;
+  display: flex;
+  border: none;
+  max-width: 100%;
+  box-shadow: none;
+  flex-direction: row;
+  align-items: center;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.container form input,
+.container form textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 14px;
+  resize: vertical;
+  border-radius: 5px;
+  margin: 14px 0px 14px 0px;
+  border: 1px solid var(--border);
+}
+
+.container form textarea {
+  min-height: 50px;
+}
+
+.container form button {
+  color: white;
+  font-weight: 600;
+  background: #2B6670;
+  width: 40px;
+  height: 40px;
+  margin: 0 0 0 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container form button img {
+  width: 25px;
+  height: 25px;
+}
+
+.container form button:hover {
+background: #D84D2E;
+}

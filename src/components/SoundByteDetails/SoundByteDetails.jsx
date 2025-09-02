@@ -22,6 +22,11 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
     const newComment = await soundCircleService.createComment(soundByteId, commentFormData);
     setSoundByte({ ...soundByte, comments: [...soundByte.comments, newComment] });
   };
+  const handleUpdateComment = async(commentId) => {
+    const updatedComment = await soundCircleService.updateComment(soundByteId, commentFormData);
+      setSoundByte({ ...soundByte, comments: [...soundByte.comment, updatedComment] });
+  };
+
   const { soundByteId } = useParams();
   const [soundByte, setSoundByte] = useState(null);
   const { user } = useContext(UserContext);
@@ -35,6 +40,7 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
   }, [soundByteId]);
 
   if (!soundByte) return <Loading />;
+
 
   return (
     <main className={styles.container}>
@@ -61,15 +67,22 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
         </header>
         <p>{soundByte.text}</p>
       </section>
+      
       <section>
         <h2>Comments</h2>
-        <CommentForm handleAddComment={handleAddComment} />
+        <CommentForm 
+        handleAddComment={handleAddComment}
+        handleUpdateComment={handleUpdateComment}
+        />
+
         {!soundByte.comments?.length && <p>There are no comments.</p>}
+
         {(soundByte.comments || []).map((comment) => (
           <article key={comment._id}>
             <header>
               <div>
                 <AuthorInfo content={comment} />
+                {console.log(soundByte)}
                 {comment.author._id === user._id && (
                   <>
                     <Link to={`/soundBytes/${soundByteId}/comments/${comment._id}/edit`}>
@@ -85,6 +98,7 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
             <p>{comment.text}</p>
           </article>
         ))}
+
       </section>
     </main>
   );
