@@ -1,6 +1,6 @@
 /* src/components/CommentForm/CommentForm.module.css */
 
-.container {
+ .container {
   height: 100%;
   display: flex;
   overflow-x: hidden;
@@ -9,7 +9,7 @@
   align-items: center;
   flex-direction: column;
 }
-
+/*
 .container label {
   font-weight: 600;
   margin: 7px 0px 14px 0px;
@@ -25,18 +25,20 @@
 input:focus, select:focus, textarea:focus {
   outline: none;
   border: 1px solid var(--primary);
-}
+} */
 
 
 /*from soundBytedetails.module.css */
 
 .container form {
   padding: 0;
+  margin: 25%; /* centered*/
   display: flex;
   border: none;
-  max-width: 100%;
+  max-width: 80%;
   box-shadow: none;
   flex-direction: row;
+  align-self: center;
   align-items: center;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
