@@ -1,6 +1,3 @@
-/* ---AB checked_ SoundCircle ready --- */
-
-
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
 
 const index = async () => {
@@ -32,8 +29,6 @@ const showAuthor = async (authorId) => {
     console.log(error);
   }
 };
-//wrapper for author info
-
 
 export {
   index,

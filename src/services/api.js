@@ -81,11 +81,11 @@ export const api = {
 
   // sBytes (protected)
   listSoundBytes: () => req('/sBytes', { auth: true }),
-  getSoundByte:    (id) => req(`/sBytes/${id}`, { auth: true }),
-  createSoundByte: (p)  => req('/sBytes',       { method: 'POST', body: p, auth: true }),
+  getSoundByte: (id) => req(`/sBytes/${id}`, { auth: true }),
+  createSoundByte: (p) => req('/sBytes', { method: 'POST', body: p, auth: true }),
   updateSoundByte: (id, p) => req(`/sBytes/${id}`, { method: 'PUT', body: p, auth: true }),
   deleteSoundByte: (id) => req(`/sBytes/${id}`, { method: 'DELETE', auth: true }),
-  likeSoundByte:   (id) => req(`/sBytes/${id}/like`,   { method: 'POST', auth: true }),
+  likeSoundByte: (id) => req(`/sBytes/${id}/like`, { method: 'POST', auth: true }),
   unlikeSoundByte: (id) => req(`/sBytes/${id}/unlike`, { method: 'POST', auth: true }),
 
   // tracks
@@ -95,8 +95,8 @@ export const api = {
     const { q = '', limit = 10, page = 1, auth = true } = arg || {};
     return req('/tracks', { query: { q, limit, page }, auth });
   },
-  getTrack:    (id) => req(`/tracks/${id}`),
-  createTrack: (p)  => req('/tracks', { method: 'POST', body: p, auth: true }),
+  getTrack: (id) => req(`/tracks/${id}`),
+  createTrack: (p) => req('/tracks', { method: 'POST', body: p, auth: true }),
   updateTrack: (id, p) => req(`/tracks/${id}`, { method: 'PUT', body: p, auth: true }),
   deleteTrack: (id) => req(`/tracks/${id}`, { method: 'DELETE', auth: true }),
 

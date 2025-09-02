@@ -11,15 +11,7 @@ const SoundByteList = (props) => {
           <article key={soundByte.id || idx} className={styles.article}>
             <header>
               <h1>
-                {/* update to match SoundByte ERD */}
-                {soundByte.title
-                  // ? soundByte.title
-                  // : soundByte.id
-                  //   ? `SoundByte #${soundByte.id}`
-                  //   : soundByte.artist
-                  //     ? 'SoundByte'
-                  //     : 'Untitled SoundByte'
-                }
+                {soundByte.title}
               </h1>
               <h2>by {soundByte.artist || 'No text provided.'}</h2>
             </header>
@@ -30,7 +22,6 @@ const SoundByteList = (props) => {
       ))}
     </main>
   );
-
 
 };
 export default SoundByteList;

@@ -12,12 +12,8 @@ import CommentForm from './components/CommentForm/CommentForm';
 import Playlist from './components/Playlist/Playlist';
 
 import Dashboard from './components/Dashboard/Dashboard';
-
-import Discover from './components/Discover/Discover';
-
-
+import Discover from './components/Discover/Discover'
 import { UserContext } from './contexts/UserContext';
-
 import * as soundCircleService from './services/soundCircleService';
 
 
@@ -25,17 +21,13 @@ const App = () => {
   const { user, setUser } = useContext(UserContext);
   const [soundBytes, setSoundBytes] = useState([]);
   const navigate = useNavigate();
-  // const { pathname } = useLocation();
 
   useEffect(() => {
     const fetchAllSoundBytes = async () => {
       const soundBytesData = await soundCircleService.index();
       setSoundBytes(soundBytesData);
     };
-    // Only prefetch on routes that use soundbytes, to avoid unnecessary fetches
-    // if (user && (pathname.startsWith('/soundbytes') || pathname.startsWith('/soundBytes'))) {
     fetchAllSoundBytes();
-    // }
   }, [user]);
   
   const handleAddSoundByte = async (soundByteFormData) => {
@@ -56,8 +48,6 @@ const App = () => {
   navigate(`/soundbytes/${soundByteId}`);
 };
 
-
-
   const handleSignOut = () => {
     setUser(null);
     navigate('/');
@@ -76,11 +66,8 @@ const App = () => {
             <Route path='/soundbytes/:soundByteId/edit' element={<SoundByteForm handleUpdateSoundByte={handleUpdateSoundByte}/>} />
             <Route path='/soundbytes/:soundbyteId/comments/:commentId/edit' element={<CommentForm/>} />
             <Route path={`/playlist/${user.username}`} element={<Playlist />} />
-
             <Route path='/profile/:username' element={<Dashboard />} />
-
             <Route path='/discover' element={<Discover />} />
-         
           </>
         ) : (
           <>

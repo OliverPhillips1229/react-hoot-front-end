@@ -1,6 +1,3 @@
-// src/services/playlistService.js
-// Front-end only service for Playlist. No jukebox usage.
-
 const rawBase = (import.meta?.env?.VITE_API_URL || import.meta?.env?.VITE_BACK_END_SERVER_URL || 'http://localhost:3000');
 const BASE = String(rawBase).replace(/\/+$/, ''); // no trailing slash
 

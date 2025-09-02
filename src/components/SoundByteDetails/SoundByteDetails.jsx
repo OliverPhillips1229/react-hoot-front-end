@@ -2,9 +2,9 @@ import AuthorInfo from '../AuthorInfo/AuthorInfo';
 import { useParams, Link } from 'react-router-dom';
 import Icon from '../Icon/Icon';
 import { useState, useEffect, useContext } from 'react';
-import * as soundCircleService from '../../services/soundCircleService'; //confirm names align
+import * as soundCircleService from '../../services/soundCircleService';
 import CommentForm from '../CommentForm/CommentForm';
-import styles from './SoundByteDetails.module.css';//confirm names align
+import styles from './SoundByteDetails.module.css';
 import Loading from '../Loading/Loading';
 import { UserContext } from '../../contexts/UserContext';
 
@@ -22,9 +22,9 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
     const newComment = await soundCircleService.createComment(soundByteId, commentFormData);
     setSoundByte({ ...soundByte, comments: [...soundByte.comments, newComment] });
   };
-  const handleUpdateComment = async(commentId) => {
+  const handleUpdateComment = async (commentId) => {
     const updatedComment = await soundCircleService.updateComment(soundByteId, commentFormData);
-      setSoundByte({ ...soundByte, comments: [...soundByte.comment, updatedComment] });
+    setSoundByte({ ...soundByte, comments: [...soundByte.comment, updatedComment] });
   };
 
   const { soundByteId } = useParams();
@@ -32,7 +32,6 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
   const { user } = useContext(UserContext);
   useEffect(() => {
     const fetchSoundByte = async () => {
-      //confirm names align across files
       const soundByteData = await soundCircleService.show(soundByteId);
       setSoundByte(soundByteData);
     };
@@ -67,12 +66,12 @@ const SoundByteDetails = ({ handleDeleteSoundByte }) => {
         </header>
         <p>{soundByte.text}</p>
       </section>
-      
+
       <section>
         <h2>Comments</h2>
-        <CommentForm 
-        handleAddComment={handleAddComment}
-        handleUpdateComment={handleUpdateComment}
+        <CommentForm
+          handleAddComment={handleAddComment}
+          handleUpdateComment={handleUpdateComment}
         />
 
         {!soundByte.comments?.length && <p>There are no comments.</p>}
